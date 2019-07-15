@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -17,12 +18,15 @@ import com.bumptech.glide.request.target.SimpleTarget;
 public class MovieDetailsActivity extends AppCompatActivity {
 
     CollapsingToolbarLayout collapsingToolbarLayout;
+    TextView desc;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
         collapsingToolbarLayout = findViewById(R.id.collapsing);
+        desc = findViewById(R.id.desc);
+        desc.setText(getIntent().getStringExtra("Desc"));
         collapsingToolbarLayout.setTitle(getIntent().getStringExtra("title"));
 
         Glide.with(this)

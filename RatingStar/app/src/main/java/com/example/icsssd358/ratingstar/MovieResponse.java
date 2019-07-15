@@ -20,6 +20,10 @@ public class MovieResponse implements Serializable {
     private String posterPath;
 
     @Expose
+    @SerializedName("backdrop_path")
+    private String backPath;
+
+    @Expose
     @SerializedName("vote_average")
     private String ratings;
 
@@ -89,5 +93,13 @@ public class MovieResponse implements Serializable {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public String getBackPath() {
+        return backPath;
+    }
+
+    public void setBackPath(String backPath) {
+        this.backPath = backPath;
     }
 }
