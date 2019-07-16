@@ -49,6 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
                 intent.putExtra("IMAGEPATH", list.get(i).getBackPath());
                 intent.putExtra("title", list.get(i).getOriginalTitle());
                 intent.putExtra("Desc", list.get(i).getOverview());
+                intent.putExtra("ID", list.get(i).getId());
                 context.startActivity(intent);
             }
         });

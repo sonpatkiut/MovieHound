@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class MovieResponse implements Serializable {
 
     @Expose
+    @SerializedName("id")
+    private int id;
+
+    @Expose
     @SerializedName("adult")
     private boolean adult;
 
@@ -101,5 +105,13 @@ public class MovieResponse implements Serializable {
 
     public void setBackPath(String backPath) {
         this.backPath = backPath;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
