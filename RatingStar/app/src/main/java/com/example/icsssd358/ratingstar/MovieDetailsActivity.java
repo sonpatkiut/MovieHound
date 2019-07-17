@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -36,12 +38,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     TextView desc;
     RecyclerView recyclerView;
+    TrailersAdapter adapter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
         recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         collapsingToolbarLayout = findViewById(R.id.collapsing);
         desc = findViewById(R.id.desc);
         desc.setText(getIntent().getStringExtra("Desc"));
@@ -59,6 +65,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         }
                     }
                 });
+        makeRequest();
     }
 
     private void makeRequest(){
@@ -70,15 +77,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         if(response!=null){
-                            findViewById(R.id.noData).setVisibility(View.GONE);
-                            findViewById(R.id.movieView).setVisibility(View.VISIBLE);
+                            /*findViewById(R.id.noData).setVisibility(View.GONE);
+                            findViewById(R.id.movieView).setVisibility(View.VISIBLE);*/
                             try {
                                 JSONArray jsonArray = response.getJSONArray("results");
                                 Type type = new TypeToken<List<TrailersResponse>>() {
                                 }.getType();
                                 List<TrailersResponse> trailersResponses = new Gson().fromJson(jsonArray.toString(), type);
-                                /*adapter = new MovieAdapter(MoviesListActivity.this, movieResponses);
-                                recyclerView.setAdapter(adapter);*/
+                                adapter = new TrailersAdapter(MovieDetailsActivity.this, trailersResponses);
+                                recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
